@@ -1,5 +1,6 @@
 import pygame
 pygame.init()
+#initialize pygame lib (must have)
 
 
 def screensetting():
