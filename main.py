@@ -7,6 +7,7 @@ import sprites
 pygame.init()
 #initialize pygame lib (must have)
 clock = pygame.time.Clock()
+hero = pygame.image.load('images\images\characters\player.png')
 
 def screensetting():
     #screen window setting pixel x pixel
@@ -21,8 +22,12 @@ class Player:
         self.y = y
         self.width = width
         self.height = height
+        self.image = hero 
+        #self.rect = pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
     def main(self, screen):
-        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        self.rect = pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        screen.blit(self.image, self.rect)
+        
 
 class PlayerRanged:
     def __init__(self, x, y, mouse_x, mouse_y):
@@ -72,16 +77,16 @@ def loop():
         pygame.draw.rect(screen, (255, 255, 255), (100-screen_scroll[0], 100-screen_scroll[1], 16, 16))
         
         if keys[pygame.K_a]:
-            screen_scroll[0] += 5
-        
-        if keys[pygame.K_d]:
             screen_scroll[0] -= 5
         
+        if keys[pygame.K_d]:
+            screen_scroll[0] += 5
+        
         if keys[pygame.K_w]:
-            screen_scroll[1] += 5
+            screen_scroll[1] -= 5
         
         if keys[pygame.K_s]:
-            screen_scroll[1] -= 5
+            screen_scroll[1] += 5
 
         for arrows in player_ranged:
             arrows.main(screen)
