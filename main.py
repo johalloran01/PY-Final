@@ -1,3 +1,4 @@
+from cmath import rect
 import pygame
 from sys import exit
 import math
@@ -21,7 +22,7 @@ class Player:
         self.width = width
         self.height = height
     def main(self, screen):
-        player.control(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
 
 class PlayerRanged:
     def __init__(self, x, y, mouse_x, mouse_y):
