@@ -1,6 +1,6 @@
 import pygame 
 from config import * 
-import sprite_sheet
+import spritesheet
 import math 
 import random
 
