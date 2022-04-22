@@ -2,7 +2,8 @@ import pygame
 import herosprite
 import math
 pygame.init()
-
+#initialize pygame lib (must have)
+clock = pygame.time.Clock()
 screen_width = 800
 screen_height = 600
 screen_scroll = [0,0]
@@ -13,8 +14,13 @@ class Player:
         self.y = y
         self.width = width
         self.height = height
+        self.image = self 
+        #self.rect = pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
     def main(self, screen):
         pygame.square(screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
+        self.rect = pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        screen.blit(self.image, self.rect)
+        
 
 class PlayerRanged:
     def __init__(self, x, y, mouse_x, mouse_y):
@@ -59,6 +65,41 @@ frame = 0
 
 for x in range(hero_stands):
     hero_standing.append(sprite_sheet1.get_image(x, 48, 48, 2))
+def loop():
+    
+    screen = pygame.display.set_mode((800,600))
+    screensetting()
+    running = True
+    while running:
+        screen.fill((0,150,0))
+        player.main(screen)
+        
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running=False
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    player_ranged.append(PlayerRanged(player.x, player.y, mouse_x, mouse_y))
+ 
+        
+        keys = pygame.key.get_pressed()
+        
+        pygame.draw.rect(screen, (255, 255, 255), (100-screen_scroll[0], 100-screen_scroll[1], 16, 16))
+        
+        if keys[pygame.K_a]:
+            screen_scroll[0] -= 5
+        
+        if keys[pygame.K_d]:
+            screen_scroll[0] += 5
+        
+        if keys[pygame.K_w]:
+            screen_scroll[1] -= 5
+        
+        if keys[pygame.K_s]:
+            screen_scroll[1] += 5
 
 hero_walkingr = []
 hero_walks = 6
